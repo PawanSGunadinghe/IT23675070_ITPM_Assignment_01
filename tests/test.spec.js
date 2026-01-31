@@ -522,3 +522,41 @@ test('Neg_Fun_0010: Missing spaces with long compound word', async ({ page }) =>
 
   expect(actualOutput).toBe(expectedOutput);
 });
+
+test('Pos_UI_0001: Multiple rapid edits handled smoothly', async ({ page }) => {
+  const expectedOutput = 'මම යනවා';
+
+  await page.goto(BASE_URL);
+  await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(1000);
+
+  const inputField = page.getByPlaceholder('Input Your Singlish Text Here.');
+
+  // Simulate rapid typing
+  await inputField.fill('ma');
+  await page.waitForTimeout(200);
+  await inputField.fill('mama');
+  await page.waitForTimeout(200);
+  await inputField.fill('mama ya');
+  await page.waitForTimeout(200);
+  await inputField.fill('mama yanavaa');
+
+  // Wait for final translation
+  await page.waitForTimeout(3000);
+
+  // Click elsewhere to close suggestions
+  await page.locator('body').click({ position: { x: 10, y: 10 } });
+  await page.waitForTimeout(500);
+
+  // Get output
+  const sinhalaContainer = page.locator('div').filter({ hasText: /^Sinhala$/ }).first();
+  const outputDiv = sinhalaContainer.locator('xpath=following-sibling::div[1]');
+  const finalOutput = await outputDiv.textContent() || '';
+
+  console.log(`TC ID: Pos_UI_0001`);
+  console.log(`Final Input: mama yanavaa`);
+  console.log(`Expected: ${expectedOutput}`);
+  console.log(`Final Output: ${finalOutput}`);
+
+  expect(finalOutput).toBe(expectedOutput);
+});
