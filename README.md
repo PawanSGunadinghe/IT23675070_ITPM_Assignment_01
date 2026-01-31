@@ -14,7 +14,7 @@ Singlish is a romanized representation of the Sinhala language, commonly used in
 
 ## Test Coverage
 
-The test suite includes **34 test cases** (24 positive + 10 negative scenarios):
+The test suite includes **35 test cases** (24 positive + 10 negative scenarios + 01 positive ui):
 
 ### Positive Test Cases (Pos_Fun_0001 - Pos_Fun_0024)
 - Short daily phrases and greetings
@@ -245,10 +245,10 @@ ISC
 
 ## Author
 
-Created for ITPM (Interactive Test Project Management)
+Created for ITPM by W.P.S.S.Gunasinghe(IT23675070)
 
 ---
 
 **Last Updated:** January 2026  
-**Total Test Cases:** 34  
+**Total Test Cases:** 35  
 **Project Status:** Active
